@@ -40,7 +40,7 @@ const play = async () => {
           { src: warriorSprite, x: 1, y: 1 },
           { src: warriorSprite, x: 0, y: 1 }
         ],
-        index: 1
+        index: 0
       }
     }
   };
@@ -50,7 +50,6 @@ const play = async () => {
     const state = player.states[player.currentState];
     const frame = state.frames[state.index];
     totalTime = totalTime + dTime;
-    console.log(totalTime);
 
     if (totalTime > 1000) {
       totalTime = totalTime - 1000;
@@ -88,6 +87,24 @@ const play = async () => {
   };
 
   animate();
+
+  // Listeners
+
+  window.addEventListener("keyup", event => {
+    const { key } = event;
+    if (key === "ArrowDown") {
+      player.y = player.y + 1;
+    }
+    if (key === "ArrowUp") {
+      player.y = player.y - 1;
+    }
+    if (key === "ArrowRight") {
+      player.x = player.x + 1;
+    }
+    if (key === "ArrowLeft") {
+      player.x = player.x - 1;
+    }
+  });
 };
 
 play();
