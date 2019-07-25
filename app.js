@@ -52,7 +52,7 @@ const play = async () => {
   };
   const wall = {
     x: 1,
-    y: 1,
+    y: 0,
     currentState: "standing",
     states: {
       standing: {
@@ -147,6 +147,10 @@ const play = async () => {
       player.x = actualPossition.x;
     }
     if (player.y < 0 || player.y > boardHeight - 1) {
+      player.y = actualPossition.y;
+    }
+    if (player.x === wall.x && player.y === wall.y) {
+      player.x = actualPossition.x;
       player.y = actualPossition.y;
     }
   });
