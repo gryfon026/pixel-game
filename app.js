@@ -76,16 +76,16 @@ const play = async () => {
   };
 
   const tick = dTime => {
-    totalTime = totalTime + dTime;
+    // totalTime = totalTime + dTime;
     const state = player.states[player.currentState];
     const frame = state.frames[state.index];
-    if (totalTime > 2000) {
-      totalTime = totalTime - 2000;
-      state.index = state.index + 1;
-      if (state.index > state.frames.length - 1) {
-        state.index = 0;
-      }
-    }
+    // if (totalTime > 2000) {
+    //   totalTime = totalTime - 2000;
+    //   state.index = state.index + 1;
+    //   if (state.index > state.frames.length - 1) {
+    //     state.index = 0;
+    //   }
+    // }
 
     ctx.drawImage(
       frame.src.image,
