@@ -75,10 +75,12 @@ const play = async () => {
     }
   };
 
+  const objects = [wall, player];
+
   const tick = dTime => {
     // totalTime = totalTime + dTime;
-    const state = player.states[player.currentState];
-    const frame = state.frames[state.index];
+    // const state = player.states[player.currentState];
+    // const frame = state.frames[state.index];
     // if (totalTime > 2000) {
     //   totalTime = totalTime - 2000;
     //   state.index = state.index + 1;
@@ -87,17 +89,21 @@ const play = async () => {
     //   }
     // }
 
-    ctx.drawImage(
-      frame.src.image,
-      frame.x * frame.src.tileWidth,
-      frame.y * frame.src.tileHeight,
-      frame.src.tileWidth,
-      frame.src.tileHeight,
-      player.x * gridSize + Math.floor((gridSize - frame.src.tileWidth) / 2),
-      player.y * gridSize + Math.floor((gridSize - frame.src.tileHeight) / 2),
-      frame.src.tileWidth,
-      frame.src.tileHeight
-    );
+    objects.forEach(obj => {
+      const state = obj.states[obj.currentState];
+      const frame = state.frames[state.index];
+      ctx.drawImage(
+        frame.src.image,
+        frame.x * frame.src.tileWidth,
+        frame.y * frame.src.tileHeight,
+        frame.src.tileWidth,
+        frame.src.tileHeight,
+        obj.x * gridSize + Math.floor((gridSize - frame.src.tileWidth) / 2),
+        obj.y * gridSize + Math.floor((gridSize - frame.src.tileHeight) / 2),
+        frame.src.tileWidth,
+        frame.src.tileHeight
+      );
+    });
   };
 
   let lastPaintMoment = Date.now();
@@ -124,10 +130,11 @@ const play = async () => {
       x: player.x,
       y: player.y
     };
-    if (key === "ArrowDown" && boardWidth < player.y) {
+    console.log(key);
+    if (key === "ArrowDown") {
       player.y = player.y + 1;
     }
-    if (key === "ArrowUp" && boardWidth > 0) {
+    if (key === "ArrowUp") {
       player.y = player.y - 1;
     }
     if (key === "ArrowRight") {
