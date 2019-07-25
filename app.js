@@ -9,8 +9,8 @@ const getImageAsset = ({ src, width, height, tileWidth, tileHeight }) =>
 const gridSize = 16;
 const zoomLevel = 4;
 const canvasId = "viewport";
-const boardWidth = 3;
-const boardHeight = 3;
+const boardWidth = 4;
+const boardHeight = 4;
 
 const play = async () => {
   const viewportNode = document.getElementById(canvasId);
@@ -92,10 +92,14 @@ const play = async () => {
 
   window.addEventListener("keyup", event => {
     const { key } = event;
-    if (key === "ArrowDown") {
+    const actualPossition = {
+      x: player.x,
+      y: player.y
+    };
+    if (key === "ArrowDown" && boardWidth < player.y) {
       player.y = player.y + 1;
     }
-    if (key === "ArrowUp") {
+    if (key === "ArrowUp" && boardWidth > 0) {
       player.y = player.y - 1;
     }
     if (key === "ArrowRight") {
@@ -103,6 +107,12 @@ const play = async () => {
     }
     if (key === "ArrowLeft") {
       player.x = player.x - 1;
+    }
+    if (player.x < 0 || player.x > boardWidth - 1) {
+      player.x = actualPossition.x;
+    }
+    if (player.y < 0 || player.y > boardHeight - 1) {
+      player.y = actualPossition.y;
     }
   });
 };
